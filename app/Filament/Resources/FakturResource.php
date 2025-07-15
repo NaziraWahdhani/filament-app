@@ -7,6 +7,8 @@ use App\Filament\Resources\FakturResource\RelationManagers;
 use App\Models\Faktur;
 use App\Models\FakturModel;
 use Filament\Forms;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -27,9 +29,9 @@ class FakturResource extends Resource
         return $form
             ->schema([
                 TextInput::make('kode_faktur'),
-                TextInput::make('tanggal_faktur'),
+                DatePicker::make('tanggal_faktur'),
                 TextInput::make('kode_customer'),
-                TextInput::make('customer_id'),
+                Select::make('customer_id')->relationship('customer', 'nama_customer'),
                 TextInput::make('ket_faktur'),
                 TextInput::make('total'),
                 TextInput::make('nominal_charge'),
@@ -45,7 +47,7 @@ class FakturResource extends Resource
                 TextColumn::make('kode_faktur'),
                 TextColumn::make('tanggal_faktur'),
                 TextColumn::make('kode_customer'),
-                TextColumn::make('customer_id'),
+                TextColumn::make('customer.nama_customer'),
                 TextColumn::make('ket_faktur'),
                 TextColumn::make('total'),
                 TextColumn::make('nominal_charge'),
@@ -57,6 +59,7 @@ class FakturResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
