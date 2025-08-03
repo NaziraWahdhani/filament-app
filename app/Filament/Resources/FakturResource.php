@@ -29,26 +29,48 @@ class FakturResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('kode_faktur'),
-                DatePicker::make('tanggal_faktur'),
-                TextInput::make('kode_customer'),
-                Select::make('customer_id')->relationship('customer', 'nama_customer'),
+                TextInput::make('kode_faktur')->columnSpan(2),
+                DatePicker::make('tanggal_faktur')
+                    ->columnSpan([
+                        'default' => 2,
+                        'md' => 1,
+                        'lg' => 1,
+                        'xl' => 1,
+                ]),
+                Select::make('customer_id')->relationship('customer', 'nama_customer')
+                    ->columnSpan([
+                        'default' => 2,
+                        'md' => 1,
+                        'lg' => 1,
+                        'xl' => 1,
+                    ]),
+                TextInput::make('kode_customer')->columnSpan(2),
                 Repeater::make('detail')
                     ->relationship()
                     ->schema([
-                        Select::make('barang_id')->relationship('barang', 'nama_barang'),
-                        TextInput::make('diskon')->numeric(),
-                        TextInput::make('nama_barang'),
-                        TextInput::make('harga')->numeric(),
-                        TextInput::make('subtotal')->numeric(),
-                        TextInput::make('qty')->numeric(),
-                        TextInput::make('hasil_qty')->numeric(),
-                    ]),
-                TextInput::make('ket_faktur'),
-                TextInput::make('total'),
-                TextInput::make('nominal_charge'),
-                TextInput::make('charge'),
-                TextInput::make('total_final'),
+                        Select::make('barang_id')->columnSpan([
+                            'default' => 2,
+                            'md' => 1,
+                            'lg' => 1,
+                            'xl' => 1,
+                        ])->relationship('barang', 'nama_barang'),
+                        TextInput::make('nama_barang')->columnSpan([
+                            'default' => 2,
+                            'md' => 1,
+                            'lg' => 1,
+                            'xl' => 1,
+                        ]),
+                        TextInput::make('diskon')->columnSpan(2)->numeric(),
+                        TextInput::make('harga')->numeric()->columnSpan(2),
+                        TextInput::make('subtotal')->numeric()->columnSpan(2),
+                        TextInput::make('qty')->numeric()->columnSpan(2),
+                        TextInput::make('hasil_qty')->numeric()->columnSpan(2),
+                    ])->columnSpan(2),
+                TextInput::make('ket_faktur')->columnSpan(2),
+                TextInput::make('total')->columnSpan(2),
+                TextInput::make('nominal_charge')->columnSpan(2),
+                TextInput::make('charge')->columnSpan(2),
+                TextInput::make('total_final')->columnSpan(2),
             ]);
     }
 
